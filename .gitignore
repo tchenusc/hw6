@@ -1,7 +1,10 @@
 *.o
+.DS_Store
+*.exe
 ht-test
 ht-perf
 str-hash-test
 hash-check
 boggle-driver
 hw6_tests/
+test

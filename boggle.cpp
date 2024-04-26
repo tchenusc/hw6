@@ -82,8 +82,9 @@ std::set<std::string> boggle(const std::set<std::string>& dict, const std::set<s
 	{
 		for(unsigned int j=0;j<board.size();j++)
 		{
-			boggleHelper(dict, prefix, board, "", result, i, j, 0, 1);
-			boggleHelper(dict, prefix, board, "", result, i, j, 1, 0);
+            //std::string currLongestWord = "";
+            boggleHelper(dict, prefix, board, "", result, i, j, 0, 1);
+            boggleHelper(dict, prefix, board, "", result, i, j, 1, 0);
 			boggleHelper(dict, prefix, board, "", result, i, j, 1, 1);
 		}
 	}
@@ -95,5 +96,33 @@ bool boggleHelper(const std::set<std::string>& dict, const std::set<std::string>
 								   std::string word, std::set<std::string>& result, unsigned int r, unsigned int c, int dr, int dc)
 {
 //add your solution here!
+    if (r >= board.size() || c >= board[0].size())
+    {
+        return false;
+    }
+    
+    word = word + board[r][c];
+    //if (word.size()>1 && dict.find(word) == dict.end()) return false;
+    
+    if (prefix.find(word) != prefix.end()) //It is a prefix
+    {
 
+        bool status = boggleHelper(dict, prefix, board, word, result, r+dr, c+dc, dr, dc);
+        if (status == true) return true;
+        if (dict.find(word) != dict.end())
+        {
+            result.insert(word);
+            return true;
+        }
+    }
+    else
+    {
+        if (dict.find(word) != dict.end())
+        {
+            result.insert(word);
+            return true;
+        }
+    }
+    return false;
+    
 }
